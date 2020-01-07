@@ -1,0 +1,25 @@
+{
+  "name": "todo_list",
+  "version": "1.0.0",
+  "description": "JavaScript project based on The Odin Project [curriculum](https://www.theodinproject.com/courses/javascript/lessons/todo-list?ref=lnav). Topics emphasized: - Factory functions - Modules - SOLID principles - localStorage - npm - webpack",
+  "main": "index.js",
+  "scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/braxtonlemmon/todo-list.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/braxtonlemmon/todo-list/issues"
+  },
+  "homepage": "https://github.com/braxtonlemmon/todo-list#readme",
+  "devDependencies": {
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  }
+}
