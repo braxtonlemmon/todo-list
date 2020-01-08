@@ -85,6 +85,20 @@ a {
 .column-btn-selected {
 	background-color: #50394cc2;
 }
+
+/* LIST BOX */
+.list-box {
+	padding: 20px;
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+}
+
+.list-item {
+	padding: 5px;
+}
 /*
 	====================
 	FOOTER
