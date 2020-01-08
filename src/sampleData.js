@@ -5,26 +5,24 @@ const sampleData = (() => {
 		'clean house'
 	];
 
-	const items = [
-		{ title: 'wash hair',
-			project: 'default' },
-		{ title: 'call john',
-			project: 'default' },
-		
-		{ title: '5 eggs',
-			project: 'grocery shop' },
-		{ title: '500g potatoes',
-			project: 'grocery shop' },
-		{ title: '400g crushed tomatoes',
-			project: 'grocery shop' },
+	const items = {
+		0: [
+			{ title: 'wash hair'},
+			{ title: 'call john'}
+		],
 
-		{ title: 'sweep kitchen',
-			project: 'clean house' },
-		{ title: 'clean windows',
-			project: 'clean house' },
-		{ title: 'start laundry',
-			project: 'clean house' },
-	]
+		1: [
+			{ title: '5 eggs' },
+			{ title: '500g potatoes' },
+			{ title: '400g crushed tomatoes' },
+		],
+		
+		2: [
+			{ title: 'sweep kitchen' },
+			{ title: 'clean windows' },
+			{ title: 'start laundry' }
+		]
+	}
 
 	return { projects, items };
 })();

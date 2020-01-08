@@ -3,10 +3,14 @@ import { sampleData } from './sampleData.js';
 const renderProjects = (() => {
 	const main = document.querySelector('.main');
 	const column = document.createElement('div');
+	let id = 0;
 
 	const render = () => {
 		_makeColumn();
 		_seedColumn();
+		
+		const initial = column.firstElementChild;
+		initial.classList.add('column-btn-selected');
 	}
 
 	// PRIVATE
@@ -25,6 +29,7 @@ const renderProjects = (() => {
 		const button = document.createElement('div');
 		button.textContent = project;
 		button.classList.add('column-btn');
+		button.dataset.id = id++;
 		column.appendChild(button);
 	}
 
