@@ -21,6 +21,7 @@ const renderApp = (() => {
 		})
 	}
 	
+	// Initial default display
 	renderProjects.render();
 	renderList.render(0);
 	return { render };

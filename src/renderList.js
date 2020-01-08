@@ -1,4 +1,4 @@
-import { sampleData } from './sampleData.js';
+import { sampleData } from './sampleData';
 
 const renderList = (() => {
 	const main = document.querySelector('.main');
