@@ -5,9 +5,10 @@ const renderList = (() => {
 	const listBox = document.createElement('div');
 	const list = document.createElement('ul');
 
-	const render = () => {
+	const render = (id) => {
+		_clearList();
 		_makeList();
-		_seedList();
+		_seedList(id);
 	};
 
 	// PRIVATE
@@ -19,8 +20,8 @@ const renderList = (() => {
 		main.appendChild(listBox);
 	};
 
-	const _seedList = () => {
-		const items = sampleData.items[0];
+	const _seedList = (id) => {
+		const items = sampleData.items[id];
 		items.forEach(item => _addItem(item));
 	};
 
@@ -30,6 +31,12 @@ const renderList = (() => {
 		listItem.classList.add('list-item');
 		list.appendChild(listItem);
 	};
+
+	const _clearList = () => {
+		while (list.childElementCount > 0) {
+			list.removeChild(list.lastElementChild);
+		}
+	}
 
 	return { render };
 })();

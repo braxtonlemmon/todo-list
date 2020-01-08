@@ -14,12 +14,15 @@ const renderApp = (() => {
 			project.addEventListener('click', () => {
 				projects.forEach(item => item.classList.remove('column-btn-selected'));
 				project.classList.add('column-btn-selected');
+				
+				const id = project.dataset.id;
+				renderList.render(id);
 			})
 		})
 	}
 	
 	renderProjects.render();
-	renderList.render();
+	renderList.render(0);
 	return { render };
 })();
 
