@@ -2,7 +2,7 @@ const sampleData = (() => {
 	const projects = [
 		'default',
 		'grocery shop',
-		'clean house'
+		'clean house',		
 	];
 
 	const items = {

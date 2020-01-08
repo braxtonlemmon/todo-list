@@ -4,14 +4,22 @@ const renderList = (() => {
 	const main = document.querySelector('.main');
 	const listBox = document.createElement('div');
 	const list = document.createElement('ul');
+	const newItemBtn = document.createElement('div');
 
 	const render = (id) => {
 		_clearList();
+		_addButton();
 		_makeList();
 		_seedList(id);
 	};
 
 	// PRIVATE
+
+	const _addButton = () => {
+		newItemBtn.classList.add('new-item-btn');
+		newItemBtn.textContent = '+';
+		listBox.appendChild(newItemBtn);
+	}
 
 	const _makeList = () => {
 		list.classList.add('list');
