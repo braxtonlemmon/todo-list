@@ -1,4 +1,5 @@
 import { sampleData } from './sampleData';
+import { renderForm } from './renderForm';
 
 const renderList = (() => {
 	const main = document.querySelector('.main');

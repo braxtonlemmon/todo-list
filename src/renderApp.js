@@ -1,13 +1,17 @@
 import { renderProjects } from './renderProjects';
 import { renderList } from './renderList';
+import { renderForm } from './renderForm';
 
 const renderApp = (() => {
+	
+	
 	const render = () => {
 		const addButton = document.querySelector('.new-button');
 		const projects = document.querySelectorAll('.column-btn');
 
 		addButton.addEventListener('click', () => {
-			console.log('new');
+			renderForm.remove();
+			renderForm.show('project');
 		});	
 
 		projects.forEach(project => {
@@ -20,10 +24,28 @@ const renderApp = (() => {
 			})
 		})
 	}
-	
+
 	// Initial default display
 	renderProjects.render();
 	renderList.render(0);
+
+	// Add event listeners
+	window.addEventListener('click', (e) => {
+		switch (e.target.className) {
+			case 'button addProject':
+				renderForm.remove();
+				break;
+			case 'button cancel':
+				renderForm.remove();
+				break;
+			case 'new-item-btn':
+				renderForm.remove();
+				renderForm.show('item');
+				break;
+		}
+	});
+
+
 	return { render };
 })();
 
