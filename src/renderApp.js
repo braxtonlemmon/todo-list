@@ -4,6 +4,7 @@ import { renderForm } from './renderForm';
 import { model } from './model';
 
 const renderApp = (() => {
+	let selectedId;
 	const render = () => {
 		const addButton = document.querySelector('.new-button');
 		const projects = document.querySelectorAll('.column-btn');
@@ -12,6 +13,7 @@ const renderApp = (() => {
 			renderForm.remove();
 			renderForm.show('project');
 		});	
+
 	}
 
 	// Initial default display
@@ -30,7 +32,7 @@ const renderApp = (() => {
 				break;
 			case 'button addItem':
 				if (model.validateItemForm()) {
-					model.createItem();
+					model.createItem(selectedId);
 					renderForm.remove();
 				}
 				break;
@@ -38,6 +40,7 @@ const renderApp = (() => {
 				renderForm.remove();
 				break;
 			case 'new-item-btn':
+				selectedId = document.querySelector('.column-btn-selected').dataset.id;
 				renderForm.remove();
 				renderForm.show('item');
 				break;

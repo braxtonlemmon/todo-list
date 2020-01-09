@@ -1,14 +1,15 @@
 let id = 0;
 const model = (() => {
-	
 	const items = [];
-	 
+	const projects = [];
+	
 	// Factory function for new project
 	const Project = (title, description, id) => {
 		return { title, description, id };
 	};
+	projects.push(Project('default', 'default project', id++));
 
-	const projects = [Project('default', 'default project', id++)];
+
 	// Factory function for new list item
 	const Item = (title, description, dueDate, priority, projectId) => {
 		return { title, description, dueDate, priority, projectId };
@@ -72,7 +73,7 @@ const model = (() => {
 			title: document.getElementById('title').value,
 			description: document.getElementById('description').value,
 			dueDate: document.getElementById('dueDate').value,
-			// priority: checked?
+			priority: document.getElementById('priority').checked
 		}
 		return itemFormData;
 	}
@@ -85,9 +86,13 @@ const model = (() => {
 		console.log(projects);
 	}
 
-	const createItem = () => {
-		const item = Item()
+	const createItem = (selectedId) => {
+		const data = _getItemFormData();
+		const item = Item(data.title, data.description, data.dueDate, data.priority, selectedId);
+		items.push(item);
+		console.log(items);
 	}
+
 	return { validateProjectForm,
 					 validateItemForm,
 					 createProject,

@@ -4,7 +4,6 @@ const renderList = (() => {
 	const main = document.querySelector('.main');
 	const listBox = document.createElement('div');
 	const list = document.createElement('ul');
-	const newItemBtn = document.createElement('div');
 
 	const render = (id) => {
 		_clearList();
@@ -16,9 +15,21 @@ const renderList = (() => {
 	// PRIVATE
 
 	const _addButton = () => {
+		const buttons = document.createElement('div');
+		const newItemBtn = document.createElement('div');
+		const editBtn = document.createElement('div');
+		const deleteBtn = document.createElement('div');
 		newItemBtn.classList.add('new-item-btn');
 		newItemBtn.textContent = '+';
-		listBox.appendChild(newItemBtn);
+		editBtn.classList.add('editProjectBtn');
+		editBtn.textContent = 'Edit';
+		deleteBtn.classList.add('deleteProjectBtn');
+		deleteBtn.textContent = 'Delete';
+		buttons.classList.add('project-buttons');
+		buttons.appendChild(editBtn);
+		buttons.appendChild(deleteBtn);
+		buttons.appendChild(newItemBtn);
+		listBox.appendChild(buttons);
 	}
 
 	const _makeList = () => {
@@ -43,6 +54,9 @@ const renderList = (() => {
 	const _clearList = () => {
 		while (list.childElementCount > 0) {
 			list.removeChild(list.lastElementChild);
+		}
+		while (listBox.childElementCount > 0) {
+			listBox.removeChild(listBox.lastElementChild);
 		}
 	}
 

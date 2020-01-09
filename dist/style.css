@@ -104,20 +104,27 @@ a {
 	grid-column: 2 / 3;
 }
 
-.new-item-btn {
-	align-self: flex-end;
+.project-buttons {
+	display: flex;
+	justify-content: space-around;
+}
+
+.project-buttons >* {
 	border: 3px solid #503942;
 	border-radius: 5px;
 	background-color: #50394cc2;
 	color: #ffef96;
-	width: 30px;
-	height: 30px;
 	display: flex;
-	position: absolute;
 	justify-content: center;
 	align-items: center;
-	font-size: 25px;
 	cursor: pointer;
+	padding: 0 5px;
+}
+
+.new-item-btn {
+	width: 20px;
+	height: 30px;
+	font-size: 25px;
 }
 
 .list {

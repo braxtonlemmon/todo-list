@@ -35,7 +35,7 @@ const renderForm = (() => {
 
 					<div class="priority">
 						<label for="priority">Priority?</label>
-						<input type="checkbox" name="priority">
+						<input type="checkbox" name="priority" id="priority">
 					</div>
 
 					<div class="form-buttons">
