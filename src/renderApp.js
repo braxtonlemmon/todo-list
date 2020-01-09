@@ -1,11 +1,9 @@
 import { renderProjects } from './renderProjects';
 import { renderList } from './renderList';
 import { renderForm } from './renderForm';
-import { validateProjectForm, validateItemForm } from './model';
+import { model } from './model';
 
 const renderApp = (() => {
-	
-	
 	const render = () => {
 		const addButton = document.querySelector('.new-button');
 		const projects = document.querySelectorAll('.column-btn');
@@ -14,16 +12,6 @@ const renderApp = (() => {
 			renderForm.remove();
 			renderForm.show('project');
 		});	
-
-		projects.forEach(project => {
-			project.addEventListener('click', () => {
-				projects.forEach(item => item.classList.remove('column-btn-selected'));
-				project.classList.add('column-btn-selected');
-				
-				const id = project.dataset.id;
-				renderList.render(id);
-			})
-		})
 	}
 
 	// Initial default display
@@ -34,16 +22,15 @@ const renderApp = (() => {
 	window.addEventListener('click', (e) => {
 		switch (e.target.className) {
 			case 'button addProject':
-				if (validateProjectForm()) {
-					// getProjectFormData();
-					// addToProjects();
+				if (model.validateProjectForm()) {
+					model.createProject();
 					renderForm.remove();
+					renderProjects.render();
 				}
 				break;
 			case 'button addItem':
-				if (validateItemForm()) {
-					//getItemFormData();
-					// addToItems();
+				if (model.validateItemForm()) {
+					model.createItem();
 					renderForm.remove();
 				}
 				break;
@@ -56,7 +43,6 @@ const renderApp = (() => {
 				break;
 		}
 	});
-
 
 	return { render };
 })();

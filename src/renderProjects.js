@@ -1,18 +1,23 @@
-import { sampleData } from './sampleData';
+// import { sampleData } from './sampleData';
+import { model } from './model';
+import { renderList } from './renderList';
 
 const renderProjects = (() => {
 	const main = document.querySelector('.main');
 	const column = document.createElement('div');
-	let id = 0;
+	// let id = 0;
 
 	const render = () => {
-		_makeColumn();
-		_seedColumn();
-		
-		const initial = column.firstElementChild;
-		initial.classList.add('column-btn-selected');
+		if (main.childElementCount < 2) {
+			_makeColumn();
+			_seedColumn();
+			const initial = column.firstElementChild;
+			initial.classList.add('column-btn-selected');
+		} else {
+			_seedColumn();
+		}
 	}
-
+	
 	// PRIVATE
 
 	const _makeColumn = () => {
@@ -21,16 +26,27 @@ const renderProjects = (() => {
 	}
 
 	const _seedColumn = () => {
-		const samples = sampleData.projects;
-		samples.forEach(sample => _makeProjectBtn(sample));
+		const projects = model.projects;
+		_makeProjectBtn(projects[projects.length - 1]);
 	}
 
 	const _makeProjectBtn = (project) => {
 		const button = document.createElement('div');
-		button.textContent = project;
+		button.textContent = project.title;
 		button.classList.add('column-btn');
-		button.dataset.id = id++;
+		button.dataset.id = project.id;
+		button.addEventListener('click', toggleProjects);
 		column.appendChild(button);
+	}
+
+	const toggleProjects = (e) => {
+		const button = e.target;
+		const projects = document.querySelectorAll('.column-btn');
+		projects.forEach(btn => btn.classList.remove('column-btn-selected'));
+		button.classList.add('column-btn-selected');
+
+		const id = button.dataset.id;
+		renderList.render(id);
 	}
 
 	return { render };

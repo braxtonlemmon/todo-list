@@ -25,17 +25,17 @@ const renderForm = (() => {
 					<h2>Item Information</h2>
 
 					<label for="title">Title</label>
-					<input type="text" name="title" id="title">
+					<input type="text" name="title" id="title" autocomplete="off">
 
 					<label for="description">Description</label>
-					<input type="text" name="description" id="description">
+					<input type="text" name="description" id="description" autocomplete="off">
 
 					<label for="dueDate">Due date</label>
 					<input type="date" name="dueDate" id="dueDate">
 
 					<div class="priority">
 						<label for="priority">Priority?</label>
-						<input type="checkbox">
+						<input type="checkbox" name="priority">
 					</div>
 
 					<div class="form-buttons">
@@ -53,10 +53,10 @@ const renderForm = (() => {
 					<h2>Project Information</h2>
 					
 					<label for="title">Title</label>
-					<input type="text" name="title" id="title">
+					<input type="text" name="title" id="title" autocomplete="off">
 					
 					<label for="description">Description</label>
-					<input type="text" name="description" id="description">
+					<input type="text" name="description" id="description" autocomplete="off">
 
 					<div class="form-buttons">
 						<input type="button" class="button addProject" value="Create">
