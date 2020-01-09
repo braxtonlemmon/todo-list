@@ -1,6 +1,7 @@
 import { renderProjects } from './renderProjects';
 import { renderList } from './renderList';
 import { renderForm } from './renderForm';
+import { validateProjectForm, validateItemForm } from './model';
 
 const renderApp = (() => {
 	
@@ -33,7 +34,18 @@ const renderApp = (() => {
 	window.addEventListener('click', (e) => {
 		switch (e.target.className) {
 			case 'button addProject':
-				renderForm.remove();
+				if (validateProjectForm()) {
+					// getProjectFormData();
+					// addToProjects();
+					renderForm.remove();
+				}
+				break;
+			case 'button addItem':
+				if (validateItemForm()) {
+					//getItemFormData();
+					// addToItems();
+					renderForm.remove();
+				}
 				break;
 			case 'button cancel':
 				renderForm.remove();
