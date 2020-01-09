@@ -93,12 +93,18 @@ const model = (() => {
 		console.log(items);
 	}
 
+	const getItems = (id) => {
+		const listItems = items.filter(item => item.projectId === id);
+		return listItems;
+	}
+
 	return { validateProjectForm,
 					 validateItemForm,
 					 createProject,
 					 createItem,
 					 projects,
-					 items
+					 items,
+					 getItems,
 	}
 })();
 

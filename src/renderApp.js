@@ -4,7 +4,7 @@ import { renderForm } from './renderForm';
 import { model } from './model';
 
 const renderApp = (() => {
-	let selectedId;
+	let selectedId = 0;
 	const render = () => {
 		const addButton = document.querySelector('.new-button');
 		const projects = document.querySelectorAll('.column-btn');
@@ -18,7 +18,7 @@ const renderApp = (() => {
 
 	// Initial default display
 	renderProjects.render();
-	renderList.render(0);
+	renderList.render(selectedId);
 
 	// Add event listeners
 	window.addEventListener('click', (e) => {
@@ -35,6 +35,7 @@ const renderApp = (() => {
 					model.createItem(selectedId);
 					renderForm.remove();
 				}
+				renderList.render(selectedId);
 				break;
 			case 'button cancel':
 				renderForm.remove();

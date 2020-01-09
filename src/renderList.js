@@ -1,4 +1,5 @@
 import { sampleData } from './sampleData';
+import { model } from './model';
 
 const renderList = (() => {
 	const main = document.querySelector('.main');
@@ -40,8 +41,10 @@ const renderList = (() => {
 	};
 
 	const _seedList = (id) => {
-		const items = sampleData.items[id];
+		// const items = sampleData.items[id];
+		const items = model.getItems(id);
 		items.forEach(item => _addItem(item));
+		
 	};
 
 	const _addItem = (item) => {
