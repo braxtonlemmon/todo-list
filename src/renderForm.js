@@ -14,7 +14,8 @@ const renderForm = (() => {
 
 	const remove = () => {
 		while (main.childElementCount > 2) {
-			main.removeChild(main.lastElementChild);
+			const form = document.querySelector('.form-div')
+			main.removeChild(form);
 		}
 	}
 

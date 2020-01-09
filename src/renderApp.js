@@ -38,6 +38,7 @@ const renderApp = (() => {
 				renderList.render(selectedId);
 				break;
 			case 'button cancel':
+				console.log('cancel');
 				renderForm.remove();
 				break;
 			case 'new-item-btn':

@@ -47,11 +47,36 @@ const renderList = (() => {
 		
 	};
 
+	// const _addItem = (item) => {
+	// 	const listItem = document.createElement('li');
+	// 	listItem.textContent = item.title;
+	// 	listItem.classList.add('list-item');
+	// 	list.appendChild(listItem);
+	// };
+
 	const _addItem = (item) => {
-		const listItem = document.createElement('li');
-		listItem.textContent = item.title;
-		listItem.classList.add('list-item');
-		list.appendChild(listItem);
+		const row = document.createElement('li');
+		const box = document.createElement('input');
+		const title = document.createElement('span');
+		const date = document.createElement('span');
+		const edit = document.createElement('div');
+		const remove = document.createElement('div');
+		const specs = [box, title, date, edit, remove];
+
+		row.classList.add('list-row');
+		box.classList.add('item-done');
+		box.type = 'checkbox';
+		title.classList.add('item-title');
+		title.textContent = item.title;
+		date.classList.add('item-date');
+		date.textContent = item.dueDate;
+		edit.classList.add('item-edit');
+		edit.innerHTML = '&#128393';
+		remove.classList.add('item-remove');
+		remove.innerHTML = '&#128465';
+
+		specs.forEach(spec => row.appendChild(spec));
+		list.appendChild(row);
 	};
 
 	const _clearList = () => {

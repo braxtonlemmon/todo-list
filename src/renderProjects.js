@@ -40,13 +40,15 @@ const renderProjects = (() => {
 	}
 
 	const toggleProjects = (e) => {
-		const button = e.target;
-		const projects = document.querySelectorAll('.column-btn');
-		projects.forEach(btn => btn.classList.remove('column-btn-selected'));
-		button.classList.add('column-btn-selected');
+		if (main.childElementCount < 3) {
+			const button = e.target;
+			const projects = document.querySelectorAll('.column-btn');
+			projects.forEach(btn => btn.classList.remove('column-btn-selected'));
+			button.classList.add('column-btn-selected');
 
-		const id = button.dataset.id;
-		renderList.render(id);
+			const id = button.dataset.id;
+			renderList.render(id);
+		}
 	}
 
 	return { render };
