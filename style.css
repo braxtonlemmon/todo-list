@@ -130,10 +130,37 @@ a {
 .list {
 	display: flex;
 	flex-direction: column;
+	margin-top: 20px;
 }
 
-.item-title {
-	padding: 5px;
+
+
+/* LIST ROW */
+.list-row {
+	display: grid;
+	grid-template-columns: 1fr 4fr 4fr 1fr 1fr;
+	align-items: center;
+	gap: 5px;
+	margin-bottom: 10px;
+}
+
+.item-done {
+	display: flex;
+	justify-content: center;
+}
+
+.item-edit, .item-remove {
+	border: 2px solid #503942;
+	border-radius: 50%;
+	font-size: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	width: 25px;
+	height: 25px;
+	color: #ffef96;
+	background-color: #50394cc2;
 }
 
 /* 
