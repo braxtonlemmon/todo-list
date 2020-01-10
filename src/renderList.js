@@ -65,7 +65,6 @@ const renderList = (() => {
 		const remove = document.createElement('div');
 		const specs = [box, title, date, edit, remove];
 
-		
 		edit.classList.add('item-edit');
 		edit.innerHTML = '&#128393';
 		remove.classList.add('item-remove');

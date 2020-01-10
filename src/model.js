@@ -127,15 +127,19 @@ const model = (() => {
 	// Initial setup for default project
 	projects.push(Project('default', 'default project', id++));
 
-	return { validateProjectForm,
-					 validateItemForm,
-					 createProject,
-					 createItem,
-					 projects,
-					 items,
-					 getItems,
-					 getProject,
-					 updateProject
+	return { 
+					projects,
+					items,
+					validateProjectForm,
+					validateItemForm,
+					createProject,
+					createItem,
+					getProject,
+					getItems,
+					updateProject,
+					updateItem,
+					destroyProject,
+					destroyItem,
 	}
 })();
 

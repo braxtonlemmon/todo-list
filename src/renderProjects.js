@@ -5,7 +5,6 @@ import { renderList } from './renderList';
 const renderProjects = (() => {
 	const main = document.querySelector('.main');
 	const column = document.createElement('div');
-	// let id = 0;
 
 	const render = () => {
 		if (main.childElementCount < 2) {
@@ -17,7 +16,24 @@ const renderProjects = (() => {
 			_seedColumn();
 		}
 	}
-	
+
+	const updateProjectBtn = (id, title) => {
+		const project = document.querySelector(`[data-id="${id}"]`);
+		project.textContent = title;
+	}
+
+	const toggleProjects = (e) => {
+		if (main.childElementCount < 3) {
+			const button = e.target;
+			const projects = document.querySelectorAll('.column-btn');
+			projects.forEach(btn => btn.classList.remove('column-btn-selected'));
+			button.classList.add('column-btn-selected');
+
+			const id = button.dataset.id;
+			renderList.render(id);
+		}
+	}
+
 	// PRIVATE
 
 	const _makeColumn = () => {
@@ -37,23 +53,6 @@ const renderProjects = (() => {
 		button.dataset.id = project.id;
 		// button.addEventListener('click', toggleProjects);
 		column.appendChild(button);
-	}
-
-	const updateProjectBtn = (id, title) => {
-		const project = document.querySelector(`[data-id="${id}"]`);
-		project.textContent = title;
-	}
-
-	const toggleProjects = (e) => {
-		if (main.childElementCount < 3) {
-			const button = e.target;
-			const projects = document.querySelectorAll('.column-btn');
-			projects.forEach(btn => btn.classList.remove('column-btn-selected'));
-			button.classList.add('column-btn-selected');
-
-			const id = button.dataset.id;
-			renderList.render(id);
-		}
 	}
 
 	return { render, toggleProjects, updateProjectBtn };
