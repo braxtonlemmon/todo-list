@@ -35,8 +35,13 @@ const renderProjects = (() => {
 		button.textContent = project.title;
 		button.classList.add('column-btn');
 		button.dataset.id = project.id;
-		button.addEventListener('click', toggleProjects);
+		// button.addEventListener('click', toggleProjects);
 		column.appendChild(button);
+	}
+
+	const updateProjectBtn = (id, title) => {
+		const project = document.querySelector(`[data-id="${id}"]`);
+		project.textContent = title;
 	}
 
 	const toggleProjects = (e) => {
@@ -51,7 +56,7 @@ const renderProjects = (() => {
 		}
 	}
 
-	return { render };
+	return { render, toggleProjects, updateProjectBtn };
 })();
 
 export { renderProjects };

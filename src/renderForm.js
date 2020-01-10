@@ -1,7 +1,20 @@
+import { model } from "./model";
+
 const renderForm = (() => {
 	const main = document.querySelector('.main');
 	
-	const show = (type) => {
+	// const show = (type) => {
+	// 	const formDiv = document.createElement('div');
+	// 	formDiv.classList.add('form-div');
+	// 	if (type === 'project') {
+	// 		_projectForm(formDiv);
+	// 	} else if (type === 'item') {
+	// 		_itemForm(formDiv);
+	// 	}
+	// 	main.appendChild(formDiv);
+	// }
+
+	const show = (type, id = "") => {
 		const formDiv = document.createElement('div');
 		formDiv.classList.add('form-div');
 		if (type === 'project') {
@@ -9,7 +22,21 @@ const renderForm = (() => {
 		} else if (type === 'item') {
 			_itemForm(formDiv);
 		}
+		
 		main.appendChild(formDiv);
+		if (Number.isInteger(id)) {
+			_populateForm(id);
+			const button = document.querySelector('.addProject');
+			button.value = 'Update';
+			button.classList.add('update-project-btn');
+			button.classList.remove('addProject');
+		}
+	}
+
+	const _populateForm = (id) => {
+		const project = model.getProject(id);
+		document.getElementById('title').value = project.title;
+		document.getElementById('description').value = project.description;
 	}
 
 	const remove = () => {

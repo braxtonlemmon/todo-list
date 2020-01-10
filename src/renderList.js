@@ -56,20 +56,22 @@ const renderList = (() => {
 
 	const _addItem = (item) => {
 		const row = document.createElement('li');
+		row.classList.add('list-row');
 		const box = document.createElement('input');
+		box.classList.add('item-done');
+		box.type = 'checkbox';
 		const title = document.createElement('span');
+		title.classList.add('item-title');
+		title.textContent = item.title;
 		const date = document.createElement('span');
+		date.classList.add('item-date');
+		date.textContent = item.dueDate;
+
 		const edit = document.createElement('div');
 		const remove = document.createElement('div');
 		const specs = [box, title, date, edit, remove];
 
-		row.classList.add('list-row');
-		box.classList.add('item-done');
-		box.type = 'checkbox';
-		title.classList.add('item-title');
-		title.textContent = item.title;
-		date.classList.add('item-date');
-		date.textContent = item.dueDate;
+		
 		edit.classList.add('item-edit');
 		edit.innerHTML = '&#128393';
 		remove.classList.add('item-remove');

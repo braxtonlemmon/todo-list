@@ -1,3 +1,5 @@
+import { renderProjects } from "./renderProjects";
+
 let id = 0;
 const model = (() => {
 	const items = [];
@@ -17,7 +19,6 @@ const model = (() => {
 
 	// Form validations
 	const validateProjectForm = () => {
-		console.log('hey');
 		const title = document.forms['ProjectForm']['title'];
 		const description = document.forms['ProjectForm']['description'];
 		if (title.value == '') {
@@ -83,20 +84,32 @@ const model = (() => {
 		const data = _getProjectFormData();
 		const project = Project(data.title, data.description, id++);
 		projects.push(project);
-		console.log(projects);
 	}
 
-	const createItem = (selectedId) => {
+	const createItem = (id) => {
 		const data = _getItemFormData();
-		const item = Item(data.title, data.description, data.dueDate, data.priority, selectedId);
+		const item = Item(data.title, data.description, data.dueDate, data.priority, id);
 		items.push(item);
-		console.log(items);
 	}
 
 	const getItems = (id) => {
 		const listItems = items.filter(item => item.projectId === id);
 		return listItems;
 	}
+
+	const updateProject = (id) => {
+		const project = getProject(id);
+		project.title = document.getElementById('title').value;
+		project.description = document.getElementById('description').value;
+		console.log(project);
+		renderProjects.updateProjectBtn(id, project.title);
+	}
+
+	const getProject = (id) => {
+		const project = projects.find(project => { return project.id === id });
+		return project;
+	}
+
 
 	return { validateProjectForm,
 					 validateItemForm,
@@ -105,6 +118,8 @@ const model = (() => {
 					 projects,
 					 items,
 					 getItems,
+					 getProject,
+					 updateProject
 	}
 })();
 
