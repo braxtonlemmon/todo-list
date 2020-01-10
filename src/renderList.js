@@ -22,7 +22,7 @@ const renderList = (() => {
 		const deleteBtn = document.createElement('div');
 		newItemBtn.classList.add('new-item-btn');
 		newItemBtn.textContent = '+';
-		editBtn.classList.add('editProjectBtn');
+		editBtn.classList.add('edit-project-btn');
 		editBtn.textContent = 'Edit';
 		deleteBtn.classList.add('deleteProjectBtn');
 		deleteBtn.textContent = 'Delete';
@@ -47,12 +47,6 @@ const renderList = (() => {
 		
 	};
 
-	// const _addItem = (item) => {
-	// 	const listItem = document.createElement('li');
-	// 	listItem.textContent = item.title;
-	// 	listItem.classList.add('list-item');
-	// 	list.appendChild(listItem);
-	// };
 
 	const _addItem = (item) => {
 		const row = document.createElement('li');

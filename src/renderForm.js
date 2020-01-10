@@ -26,10 +26,10 @@ const renderForm = (() => {
 		main.appendChild(formDiv);
 		if (Number.isInteger(id)) {
 			_populateForm(id);
-			const button = document.querySelector('.addProject');
+			const button = document.querySelector('.create-project-btn');
 			button.value = 'Update';
 			button.classList.add('update-project-btn');
-			button.classList.remove('addProject');
+			button.classList.remove('create-project-btn');
 		}
 	}
 
@@ -67,7 +67,7 @@ const renderForm = (() => {
 					</div>
 
 					<div class="form-buttons">
-						<input type="button" class="button addItem" value="Create">
+						<input type="button" class="button create-item-btn" value="Create">
 						<input type="button" class="button cancel" value="Cancel">
 					</div>
 				</form>
@@ -87,7 +87,7 @@ const renderForm = (() => {
 					<input type="text" name="description" id="description" autocomplete="off">
 
 					<div class="form-buttons">
-						<input type="button" class="button addProject" value="Create">
+						<input type="button" class="button create-project-btn" value="Create">
 						<input type="button" class="button cancel" value="Cancel">
 					</div>
 				</form>
