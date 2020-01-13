@@ -7,7 +7,7 @@ const renderList = (() => {
 	const list = document.createElement('ul');
 
 	const render = (id) => {
-		_clearList();
+		clearList();
 		_addButton();
 		_makeList();
 		_seedList(id);
@@ -24,7 +24,7 @@ const renderList = (() => {
 		newItemBtn.textContent = '+';
 		editBtn.classList.add('edit-project-btn');
 		editBtn.textContent = 'Edit';
-		deleteBtn.classList.add('deleteProjectBtn');
+		deleteBtn.classList.add('destroy-project-btn');
 		deleteBtn.textContent = 'Delete';
 		buttons.classList.add('project-buttons');
 		buttons.appendChild(editBtn);
@@ -74,7 +74,7 @@ const renderList = (() => {
 		list.appendChild(row);
 	};
 
-	const _clearList = () => {
+	const clearList = () => {
 		while (list.childElementCount > 0) {
 			list.removeChild(list.lastElementChild);
 		}
@@ -83,7 +83,7 @@ const renderList = (() => {
 		}
 	}
 
-	return { render };
+	return { render, clearList };
 })();
 
 export { renderList };

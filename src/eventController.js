@@ -35,6 +35,14 @@ const controller = (() => {
 					renderForm.remove();
 					break;
 
+				// Destroy project
+				case 'destroy-project-btn':
+					model.destroyProjectItems(selectedId);
+					model.destroyProject(selectedId);
+					renderProjects.destroyProject(selectedId);
+					renderList.clearList();
+					break;
+
 				// Open new item form
 				case 'new-item-btn':
 					selectedId = document.querySelector('.column-btn-selected').dataset.id;

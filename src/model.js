@@ -1,6 +1,8 @@
 import { renderProjects } from "./renderProjects";
 
-let id = 0;
+let projId = 0;
+let itemId = 0;
+
 const model = (() => {
 	const items = [];
 	const projects = [];
@@ -11,8 +13,8 @@ const model = (() => {
 	};
 
 	// Factory function for new list item
-	const Item = (title, description, dueDate, priority, projectId) => {
-		return { title, description, dueDate, priority, projectId };
+	const Item = (title, description, dueDate, priority, projectId, id) => {
+		return { title, description, dueDate, priority, projectId, id };
 	};
 
 	// Form validations
@@ -61,13 +63,13 @@ const model = (() => {
 	// Create new objects
 	const createProject = () => {
 		const data = _getProjectFormData();
-		const project = Project(data.title, data.description, id++);
+		const project = Project(data.title, data.description, projId++);
 		projects.push(project);
 	}
 
-	const createItem = (id) => {
+	const createItem = (projectId) => {
 		const data = _getItemFormData();
-		const item = Item(data.title, data.description, data.dueDate, data.priority, id);
+		const item = Item(data.title, data.description, data.dueDate, data.priority, projectId, itemId++);
 		items.push(item);
 	}
 
@@ -96,13 +98,33 @@ const model = (() => {
 
 	// Destroy objects
 	const destroyProject = (id) => {
-
+		for (let i = 0; i < projects.length; i++) {
+			if (projects[i].id === id) {
+				projects.splice(i, 1);
+				break;
+			}
+		}
 	}
 
-	const destroyItem = () => {
-
+	const destroyItem = (id) => {
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].id === id) {
+				items.splice(i, 1);
+				break;
+			}
+		}
 	}
 
+	const destroyProjectItems = (projectId) => {
+		items.forEach(item => {
+			if (item.projectId === projectId) {
+				destroyItem(item.id);
+			}
+		})
+	}
+
+	// get project id
+	// iterate projects and call destroyItem on objects with matching id
 	// PRIVATE 
 
 	// Get form data
@@ -125,7 +147,7 @@ const model = (() => {
 	}
 
 	// Initial setup for default project
-	projects.push(Project('default', 'default project', id++));
+	projects.push(Project('default', 'default project', projId++));
 
 	return { 
 					projects,
@@ -140,6 +162,7 @@ const model = (() => {
 					updateItem,
 					destroyProject,
 					destroyItem,
+					destroyProjectItems,
 	}
 })();
 

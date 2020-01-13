@@ -8,6 +8,7 @@ const renderProjects = (() => {
 
 	const render = () => {
 		if (main.childElementCount < 2) {
+			console.log('hey');
 			_makeColumn();
 			_seedColumn();
 			const initial = column.firstElementChild;
@@ -34,6 +35,11 @@ const renderProjects = (() => {
 		}
 	}
 
+	const destroyProject = (id) => {
+		const project = document.querySelector(`[data-id="${id}"]`);
+		const column = document.querySelector('.projects-column');
+		column.removeChild(project);
+	}
 	// PRIVATE
 
 	const _makeColumn = () => {
@@ -55,7 +61,12 @@ const renderProjects = (() => {
 		column.appendChild(button);
 	}
 
-	return { render, toggleProjects, updateProjectBtn };
+	return { 
+					render, 
+					toggleProjects, 
+					updateProjectBtn,
+					destroyProject
+				};
 })();
 
 export { renderProjects };
