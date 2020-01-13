@@ -61,8 +61,11 @@ const controller = (() => {
 
 				// Destroy individual item
 				case 'item-remove':
-					
+					const id = parseInt(e.target.parentNode.attributes[1].value);
+					model.destroyItem(id);
+					renderList.destroyItem(id);
 					break;
+
 				// Cancel and close form
 				case 'button cancel':
 					renderForm.remove();

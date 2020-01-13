@@ -51,7 +51,7 @@ const renderList = (() => {
 	const _addItem = (item) => {
 		const row = document.createElement('li');
 		row.classList.add('list-row');
-		row.dataset.id = item.id;
+		row.dataset.itemId = item.id;
 		const box = document.createElement('input');
 		box.classList.add('item-done');
 		box.type = 'checkbox';
@@ -84,7 +84,13 @@ const renderList = (() => {
 		}
 	}
 
-	return { render, clearList };
+	const destroyItem = (id) => {
+		const item = document.querySelector(`[data-item-id="${id}"]`);
+		const list = document.querySelector('.list');
+		list.removeChild(item);
+	}
+
+	return { render, clearList, destroyItem };
 })();
 
 export { renderList };
