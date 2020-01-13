@@ -59,6 +59,10 @@ const controller = (() => {
 					renderList.render(selectedId);
 					break;
 
+				// Destroy individual item
+				case 'item-remove':
+					
+					break;
 				// Cancel and close form
 				case 'button cancel':
 					renderForm.remove();

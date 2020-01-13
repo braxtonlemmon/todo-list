@@ -51,6 +51,7 @@ const renderList = (() => {
 	const _addItem = (item) => {
 		const row = document.createElement('li');
 		row.classList.add('list-row');
+		row.dataset.id = item.id;
 		const box = document.createElement('input');
 		box.classList.add('item-done');
 		box.type = 'checkbox';
