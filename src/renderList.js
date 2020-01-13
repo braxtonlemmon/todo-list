@@ -54,12 +54,15 @@ const renderList = (() => {
 		row.dataset.itemId = item.id;
 		const box = document.createElement('input');
 		box.classList.add('item-done');
+		box.dataset.itemBox = item.id;
 		box.type = 'checkbox';
 		const title = document.createElement('span');
 		title.classList.add('item-title');
+		title.dataset.itemTitle = item.id;
 		title.textContent = item.title;
 		const date = document.createElement('span');
 		date.classList.add('item-date');
+		date.dataset.itemDate = item.id;
 		date.textContent = item.dueDate;
 
 		const edit = document.createElement('div');
@@ -84,13 +87,22 @@ const renderList = (() => {
 		}
 	}
 
+	const updateItemRow = (id, data) => {
+		const key = `[data-item-id="${id}"]`;
+		const item = document.querySelector(key);
+		const title = document.querySelector(`[data-item-title="${id}"]`);
+		title.textContent = data.title;
+		const date = document.querySelector(`[data-item-date="${id}"]`);
+		date.textContent = data.dueDate;
+	}
+
 	const destroyItem = (id) => {
 		const item = document.querySelector(`[data-item-id="${id}"]`);
 		const list = document.querySelector('.list');
 		list.removeChild(item);
 	}
 
-	return { render, clearList, destroyItem };
+	return { render, clearList, destroyItem, updateItemRow };
 })();
 
 export { renderList };

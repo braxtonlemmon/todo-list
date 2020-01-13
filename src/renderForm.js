@@ -22,6 +22,20 @@ const renderForm = (() => {
 		}
 	}
 
+	const showItemForm = (id = "") => {
+		const formDiv = document.createElement('div');
+		formDiv.classList.add('form-div');
+		_itemForm(formDiv);
+		main.appendChild(formDiv);
+		if (Number.isInteger(id)) {
+			_populateItemForm(id);
+			const button = document.querySelector('.create-item-btn');
+			button.value = 'Update';
+			button.classList.add('update-item-btn');
+			button.classList.remove('create-item-btn');
+		}
+	}
+
 	const remove = () => {
 		while (main.childElementCount > 2) {
 			const form = document.querySelector('.form-div')
@@ -35,6 +49,14 @@ const renderForm = (() => {
 		const project = model.getProject(id);
 		document.getElementById('title').value = project.title;
 		document.getElementById('description').value = project.description;
+	}
+
+	const _populateItemForm = (id) => {
+		const item = model.getItem(id);
+		document.getElementById('title').value = item.title;
+		document.getElementById('description').value = item.description;
+		document.getElementById('dueDate').value = item.dueDate;
+		document.getElementById('priority').value = item.priority;
 	}
 
 	const _projectForm = (formDiv) => {
@@ -85,7 +107,7 @@ const renderForm = (() => {
 			`
 	}
 
-	return { show, remove }
+	return { show, remove, showItemForm }
 })();
 
 export { renderForm };

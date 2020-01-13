@@ -5,6 +5,7 @@ import { renderList } from './renderList.js';
 
 const controller = (() => {
 	let selectedId = 0;
+	let itemId = 0;
 	const listen = () => {
 		window.addEventListener('click', (e) => {
 			switch (e.target.className) {
@@ -31,7 +32,9 @@ const controller = (() => {
 
 				// Update project
 				case 'button update-project-btn':
+					const project = model.getProject(selectedId);
 					model.updateProject(selectedId);
+					renderProjects.updateProjectBtn(selectedId, project.title);
 					renderForm.remove();
 					break;
 
@@ -59,11 +62,33 @@ const controller = (() => {
 					renderList.render(selectedId);
 					break;
 
+				// Open edit item form
+				case 'item-edit': 
+					itemId = parseInt(e.target.parentNode.attributes[1].value);
+					renderForm.remove();
+					renderForm.showItemForm(itemId);
+				
+					// const data = model._getItemFormData();
+					// renderList.updateItemRow(id, data);
+					// renderForm.remove();
+					// renderForm.show('item', id);
+					break;
+				
+				// Update item
+				case 'button update-item-btn':
+					console.log(itemId);
+					model.updateItem(itemId);
+					const data = model._getItemFormData();
+					console.log(data);
+					renderList.updateItemRow(itemId, data);
+					renderForm.remove();
+					break;
+
 				// Destroy individual item
 				case 'item-remove':
-					const id = parseInt(e.target.parentNode.attributes[1].value);
-					model.destroyItem(id);
-					renderList.destroyItem(id);
+					const itId = parseInt(e.target.parentNode.attributes[1].value);
+					model.destroyItem(itId);
+					renderList.destroyItem(itId);
 					break;
 
 				// Cancel and close form

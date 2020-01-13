@@ -79,6 +79,11 @@ const model = (() => {
 		return project;
 	}
 
+	const getItem = (id) => {
+		const item = items.find(item => { return item.id === id });
+		return item;
+	}
+
 	const getItems = (id) => {
 		const listItems = items.filter(item => item.projectId === id);
 		return listItems;
@@ -89,11 +94,16 @@ const model = (() => {
 		const project = getProject(id);
 		project.title = document.getElementById('title').value;
 		project.description = document.getElementById('description').value;
-		renderProjects.updateProjectBtn(id, project.title);
+		// renderProjects.updateProjectBtn(id, project.title);
 	}
 
-	const updateItem = () => {
-
+	const updateItem = (id) => {
+		const item = getItem(id);
+		const data = _getItemFormData();
+		item.title = data.title;
+		item.description = data.description;
+		item.data = data.dueDate;
+		item.priority = data.priority;
 	}
 
 	// Destroy objects
@@ -158,11 +168,13 @@ const model = (() => {
 					createItem,
 					getProject,
 					getItems,
+					getItem,
 					updateProject,
 					updateItem,
 					destroyProject,
 					destroyItem,
 					destroyProjectItems,
+					_getItemFormData,
 	}
 })();
 
