@@ -1,6 +1,7 @@
 import { model } from './model.js';
 import { renderForm } from './renderForm.js';
 import { renderProjects } from './renderProjects.js';
+import { renderList } from './renderList.js';
 
 const controller = (() => {
 	let selectedId = 0;
@@ -27,6 +28,7 @@ const controller = (() => {
 
 				// Open edit project form	
 				case 'edit-project-btn':
+					selectedId = _findCurrentId();
 					renderForm.remove();
 					renderForm.show('project', selectedId);
 					break;
@@ -119,8 +121,10 @@ const controller = (() => {
 	// PRIVATE
 	
 	const _findCurrentId = () => {
-		const currentProject = document.querySelector('.column-btn-selected');
-		return parseInt(currentProject.dataset.id);
+		if (model.projects.length > 0) {
+			const currentProject = document.querySelector('.column-btn-selected');
+			return parseInt(currentProject.dataset.id);
+		}
 	}
 
 	return { listen };
