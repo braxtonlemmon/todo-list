@@ -1,8 +1,6 @@
 import { model } from './model.js';
 import { renderForm } from './renderForm.js';
 import { renderProjects } from './renderProjects.js';
-import { renderList } from './renderList.js';
-import { renderApp } from './renderApp.js';
 
 const controller = (() => {
 	let selectedId = 0;
@@ -10,6 +8,7 @@ const controller = (() => {
 	const listen = () => {
 		window.addEventListener('click', (e) => {
 			switch (e.target.className) {
+
 				// Open new project form
 				case 'new-project-btn':
 					renderForm.remove();
@@ -22,7 +21,7 @@ const controller = (() => {
 						model.createProject();
 						renderForm.remove();
 						renderProjects.renderNew();
-						selectedId = renderProjects.resetId('last');
+						selectedId = _findCurrentId();
 					}
 					break;
 
@@ -42,6 +41,7 @@ const controller = (() => {
 
 				// Destroy project
 				case 'destroy-project-btn':
+					selectedId = _findCurrentId();
 					if (confirm('Are you sure you want to delete this project?')) 
 					{
 						model.destroyProjectItems(selectedId);
@@ -49,7 +49,7 @@ const controller = (() => {
 						renderProjects.destroyProject(selectedId);
 						renderList.clearList();
 						renderProjects.render();
-						selectedId = renderProjects.resetId('first');
+						selectedId = _findCurrentId();
 					}
 					break;
 
@@ -71,7 +71,6 @@ const controller = (() => {
 
 				// Open edit item form
 				case 'item-edit': 
-					console.log(model.items);
 					itemId = parseInt(e.target.parentNode.attributes[1].value);
 					renderForm.remove();
 					renderForm.show('item', itemId);
@@ -80,7 +79,7 @@ const controller = (() => {
 				// Update item
 				case 'button update-item-btn':
 					model.updateItem(itemId);
-					const data = model._getItemFormData();
+					const data = model.getItemFormData();
 					renderList.updateItemRow(itemId, data);
 					renderForm.remove();
 					break;
@@ -115,6 +114,13 @@ const controller = (() => {
 					break;
 			}
 		});
+	}
+
+	// PRIVATE
+	
+	const _findCurrentId = () => {
+		const currentProject = document.querySelector('.column-btn-selected');
+		return parseInt(currentProject.dataset.id);
 	}
 
 	return { listen };

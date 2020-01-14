@@ -13,6 +13,32 @@ const renderList = (() => {
 		_makeList();
 		_seedList(id);
 	};
+	
+	const clearList = () => {
+		while (list.childElementCount > 0) {
+			list.removeChild(list.lastElementChild);
+		}
+		while (listBox.childElementCount > 0) {
+			listBox.removeChild(listBox.lastElementChild);
+		}
+	}
+
+	const updateItemRow = (id, data) => {
+		const key = `[data-item-id="${id}"]`;
+		const item = document.querySelector(key);
+		const title = document.querySelector(`[data-item-title="${id}"]`);
+		title.textContent = data.title;
+		const date = document.querySelector(`[data-item-date="${id}"]`);
+		date.textContent = data.dueDate;
+		data.priority ? item.classList.add('row-priority') : item.classList.remove('row-priority');
+
+	}
+
+	const destroyItem = (id) => {
+		const item = document.querySelector(`[data-item-id="${id}"]`);
+		const list = document.querySelector('.list');
+		list.removeChild(item);
+	}
 
 	// PRIVATE
 
@@ -47,9 +73,7 @@ const renderList = (() => {
 		row.appendChild(done);
 		row.appendChild(title);
 		row.appendChild(date);
-
 		listBox.appendChild(row);
-
 	}
 
 	const _makeList = () => {
@@ -99,32 +123,6 @@ const renderList = (() => {
 		specs.forEach(spec => row.appendChild(spec));
 		list.appendChild(row);
 	};
-
-	const clearList = () => {
-		while (list.childElementCount > 0) {
-			list.removeChild(list.lastElementChild);
-		}
-		while (listBox.childElementCount > 0) {
-			listBox.removeChild(listBox.lastElementChild);
-		}
-	}
-
-	const updateItemRow = (id, data) => {
-		const key = `[data-item-id="${id}"]`;
-		const item = document.querySelector(key);
-		const title = document.querySelector(`[data-item-title="${id}"]`);
-		title.textContent = data.title;
-		const date = document.querySelector(`[data-item-date="${id}"]`);
-		date.textContent = data.dueDate;
-		data.priority ? item.classList.add('row-priority') : item.classList.remove('row-priority');
-
-	}
-
-	const destroyItem = (id) => {
-		const item = document.querySelector(`[data-item-id="${id}"]`);
-		const list = document.querySelector('.list');
-		list.removeChild(item);
-	}
 
 	return { render, clearList, destroyItem, updateItemRow };
 })();

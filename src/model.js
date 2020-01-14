@@ -1,11 +1,8 @@
-import { renderProjects } from "./renderProjects";
-
-let projId = 0;
-let itemId = 0;
-
 const model = (() => {
-	const items = [];
-	const projects = [];
+	let items = [];
+	let projects = [];
+	let projId;
+	let itemId;
 	
 	// Factory function for new project
 	const Project = (title, description, id) => {
@@ -16,6 +13,46 @@ const model = (() => {
 	const Item = (title, description, dueDate, priority, projectId, id, done) => {
 		return { title, description, dueDate, priority, projectId, id, done };
 	};
+
+	// load data from localStorage
+	const loadSaved = () => {
+		const savedProjects = JSON.parse(localStorage.getItem('projects'));
+		const savedItems = JSON.parse(localStorage.getItem('items'));
+		const savedProjId = JSON.parse(localStorage.getItem('projId'));
+		const savedItemId = JSON.parse(localStorage.getItem('itemId'));
+
+		if (savedProjId) {
+			projId = savedProjId;
+		} else {
+			projId = 0;
+			localStorage.setItem('projId', JSON.stringify(projId));
+		}
+
+		if (savedItemId) {
+			itemId = savedItemId;
+		} else {
+			itemId = 0;
+			localStorage.setItem('itemId', JSON.stringify(itemId));
+		}
+
+		if (savedProjects && savedProjects.length > 0) {
+			savedProjects.forEach(project => {
+				const newProj = Project(project.title, project.description, project.id);
+				projects.push(newProj);
+			});
+
+			if (savedItems) {
+				savedItems.forEach(item => {
+					const newItem = Item(item.title, item.description, item.dueDate, item.priority, item.projectId, item.id, item.done);
+					items.push(newItem);
+				})
+			}
+		} else  {
+			projects.push(Project('default', 'default project', projId++));
+			localStorage.setItem('projects', JSON.stringify(projects));
+			localStorage.setItem('projId', JSON.stringify(projId));
+		}
+	}
 
 	// Form validations
 	const validateProjectForm = () => {
@@ -65,12 +102,16 @@ const model = (() => {
 		const data = _getProjectFormData();
 		const project = Project(data.title, data.description, projId++);
 		projects.push(project);
+		localStorage.setItem('projects', JSON.stringify(projects));
+		localStorage.setItem('projId', JSON.stringify(projId));
 	}
 
 	const createItem = (projectId) => {
-		const data = _getItemFormData();
+		const data = getItemFormData();
 		const item = Item(data.title, data.description, data.dueDate, data.priority, projectId, itemId++, false);
 		items.push(item);
+		localStorage.setItem('items', JSON.stringify(items));
+		localStorage.setItem('itemId', JSON.stringify(itemId));
 	}
 
 	// Read/get objects
@@ -85,7 +126,7 @@ const model = (() => {
 	}
 
 	const getItems = (id) => {
-		const listItems = items.filter(item => item.projectId === id);
+		const listItems = items.filter(item => item.projectId == id);
 		return listItems;
 	}
 
@@ -94,17 +135,17 @@ const model = (() => {
 		const project = getProject(id);
 		project.title = document.getElementById('title').value;
 		project.description = document.getElementById('description').value;
-		// renderProjects.updateProjectBtn(id, project.title);
+		localStorage.setItem('projects', JSON.stringify(projects));
 	}
 
 	const updateItem = (id) => {
 		const item = getItem(id);
-		const data = _getItemFormData();
-		console.log(data);
+		const data = getItemFormData();
 		item.title = data.title;
 		item.description = data.description;
 		item.data = data.dueDate;
 		item.priority = data.priority;
+		localStorage.setItem('items', JSON.stringify(items));
 	}
 
 	// Destroy objects
@@ -115,6 +156,7 @@ const model = (() => {
 				break;
 			}
 		}
+		localStorage.setItem('projects', JSON.stringify(projects));
 	}
 
 	const destroyItem = (id) => {
@@ -124,6 +166,7 @@ const model = (() => {
 				break;
 			}
 		}
+		localStorage.setItem('items', JSON.stringify(items));
 	}
 
 	const destroyProjectItems = (projectId) => {
@@ -134,8 +177,6 @@ const model = (() => {
 		})
 	}
 
-	// get project id
-	// iterate projects and call destroyItem on objects with matching id
 	// PRIVATE 
 
 	// Get form data
@@ -147,7 +188,7 @@ const model = (() => {
 		return projectFormData;
 	}
 
-	const _getItemFormData = () => {
+	const getItemFormData = () => {
 		const itemFormData = {
 			title: document.getElementById('title').value,
 			description: document.getElementById('description').value,
@@ -156,9 +197,6 @@ const model = (() => {
 		}
 		return itemFormData;
 	}
-
-	// Initial setup for default project
-	projects.push(Project('default', 'default project', projId++));
 
 	return { 
 					projects,
@@ -175,7 +213,8 @@ const model = (() => {
 					destroyProject,
 					destroyItem,
 					destroyProjectItems,
-					_getItemFormData,
+					getItemFormData,
+					loadSaved,
 	}
 })();
 

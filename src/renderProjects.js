@@ -1,4 +1,3 @@
-// import { sampleData } from './sampleData';
 import { model } from './model';
 import { renderList } from './renderList';
 
@@ -13,14 +12,14 @@ const renderProjects = (() => {
 		_seedColumn();
 		const initial = column.firstElementChild;
 		initial.classList.add('column-btn-selected');
-		renderList.render(initial.dataset.id);
+		renderList.render(parseInt(initial.dataset.id));
 	}
 
 	const renderNew = () => {
 		_seedColumn();
 		const newProject = column.lastElementChild;
 		newProject.classList.add('column-btn-selected');
-		renderList.render(newProject.dataset.id);
+		renderList.render(parseInt(newProject.dataset.id));
 	}
 
 	const updateProjectBtn = (id, title) => {
@@ -34,26 +33,20 @@ const renderProjects = (() => {
 			const projects = document.querySelectorAll('.column-btn');
 			projects.forEach(btn => btn.classList.remove('column-btn-selected'));
 			button.classList.add('column-btn-selected');
-
 			const id = button.dataset.id;
 			renderList.render(id);
 		}
 	}
 
 	const destroyProject = (id) => {
+		console.log('hey');
 		const project = document.querySelector(`[data-id="${id}"]`);
+		console.log(project);
 		const column = document.querySelector('.projects-column');
+		console.log(column);
 		column.removeChild(project);
 	}
-
-	const resetId = (position) => {
-		const column = document.querySelector('.projects-column');
-		if (position === 'first') {
-			if (column.childElementCount > 0) return parseInt(column.firstElementChild.dataset.id);
-		} else if (position === 'last') {
-			return parseInt(column.lastElementChild.dataset.id);
-		}
-	}
+	
 	// PRIVATE
 
 	const _makeColumn = () => {
@@ -85,7 +78,6 @@ const renderProjects = (() => {
 					toggleProjects, 
 					updateProjectBtn,
 					destroyProject,
-					resetId,
 					renderNew,
 				};
 })();
