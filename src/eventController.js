@@ -6,10 +6,10 @@ import { renderList } from './renderList.js';
 const controller = (() => {
 	let selectedId = 0;
 	let itemId = 0;
+
 	const listen = () => {
 		window.addEventListener('click', (e) => {
 			switch (e.target.className) {
-
 				// Open new project form
 				case 'new-project-btn':
 					renderForm.remove();
