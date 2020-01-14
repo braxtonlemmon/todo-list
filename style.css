@@ -76,7 +76,7 @@ a {
 .projects-column {
 	border-right: 4px solid #50394cc2;
 	height: 100vh;
-	background: #c7c7c7;
+	background: #cfccca;
 	overflow-y: auto;
 	grid-column: 1 / 2;
 	display: flex;
