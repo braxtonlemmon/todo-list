@@ -6,33 +6,14 @@ const renderForm = (() => {
 	const show = (type, id = "") => {
 		const formDiv = document.createElement('div');
 		formDiv.classList.add('form-div');
-		if (type === 'project') {
-			_projectForm(formDiv);
-		} else if (type === 'item') {
-			_itemForm(formDiv);
-		}
-		
+		type === 'project' ? _projectForm(formDiv) : _itemForm(formDiv);
 		main.appendChild(formDiv);
 		if (Number.isInteger(id)) {
-			_populateForm(id);
-			const button = document.querySelector('.create-project-btn');
+			type === 'project' ? _populateProjectForm(id) : _populateItemForm(id);
+			const button = document.querySelector(`.create-${type}-btn`);
 			button.value = 'Update';
-			button.classList.add('update-project-btn');
-			button.classList.remove('create-project-btn');
-		}
-	}
-
-	const showItemForm = (id = "") => {
-		const formDiv = document.createElement('div');
-		formDiv.classList.add('form-div');
-		_itemForm(formDiv);
-		main.appendChild(formDiv);
-		if (Number.isInteger(id)) {
-			_populateItemForm(id);
-			const button = document.querySelector('.create-item-btn');
-			button.value = 'Update';
-			button.classList.add('update-item-btn');
-			button.classList.remove('create-item-btn');
+			button.classList.add(`update-${type}-btn`);
+			button.classList.remove(`create-${type}-btn`);
 		}
 	}
 
@@ -45,7 +26,7 @@ const renderForm = (() => {
 
 	// PRIVATE
 
-	const _populateForm = (id) => {
+	const _populateProjectForm = (id) => {
 		const project = model.getProject(id);
 		document.getElementById('title').value = project.title;
 		document.getElementById('description').value = project.description;
@@ -56,7 +37,8 @@ const renderForm = (() => {
 		document.getElementById('title').value = item.title;
 		document.getElementById('description').value = item.description;
 		document.getElementById('dueDate').value = item.dueDate;
-		document.getElementById('priority').value = item.priority;
+		document.getElementById('priority').checked = item.priority;
+		
 	}
 
 	const _projectForm = (formDiv) => {
@@ -107,7 +89,7 @@ const renderForm = (() => {
 			`
 	}
 
-	return { show, remove, showItemForm }
+	return { show, remove }
 })();
 
 export { renderForm };

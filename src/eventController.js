@@ -2,6 +2,7 @@ import { model } from './model.js';
 import { renderForm } from './renderForm.js';
 import { renderProjects } from './renderProjects.js';
 import { renderList } from './renderList.js';
+import { renderApp } from './renderApp.js';
 
 const controller = (() => {
 	let selectedId = 0;
@@ -20,7 +21,8 @@ const controller = (() => {
 					if (model.validateProjectForm()) {
 						model.createProject();
 						renderForm.remove();
-						renderProjects.render();
+						renderProjects.renderNew();
+						selectedId = renderProjects.resetId('last');
 					}
 					break;
 
@@ -40,10 +42,15 @@ const controller = (() => {
 
 				// Destroy project
 				case 'destroy-project-btn':
-					model.destroyProjectItems(selectedId);
-					model.destroyProject(selectedId);
-					renderProjects.destroyProject(selectedId);
-					renderList.clearList();
+					if (confirm('Are you sure you want to delete this project?')) 
+					{
+						model.destroyProjectItems(selectedId);
+						model.destroyProject(selectedId);
+						renderProjects.destroyProject(selectedId);
+						renderList.clearList();
+						renderProjects.render();
+						selectedId = renderProjects.resetId('first');
+					}
 					break;
 
 				// Open new item form
@@ -64,31 +71,27 @@ const controller = (() => {
 
 				// Open edit item form
 				case 'item-edit': 
+					console.log(model.items);
 					itemId = parseInt(e.target.parentNode.attributes[1].value);
 					renderForm.remove();
-					renderForm.showItemForm(itemId);
-				
-					// const data = model._getItemFormData();
-					// renderList.updateItemRow(id, data);
-					// renderForm.remove();
-					// renderForm.show('item', id);
+					renderForm.show('item', itemId);
 					break;
 				
 				// Update item
 				case 'button update-item-btn':
-					console.log(itemId);
 					model.updateItem(itemId);
 					const data = model._getItemFormData();
-					console.log(data);
 					renderList.updateItemRow(itemId, data);
 					renderForm.remove();
 					break;
 
 				// Destroy individual item
 				case 'item-remove':
+					{
 					const itId = parseInt(e.target.parentNode.attributes[1].value);
 					model.destroyItem(itId);
 					renderList.destroyItem(itId);
+					}
 					break;
 
 				// Cancel and close form
@@ -100,7 +103,16 @@ const controller = (() => {
 				case 'column-btn':
 					renderProjects.toggleProjects(e);
 					selectedId = parseInt(e.target.attributes[1].value);
-					break;	
+					break;
+					
+				// Mark item as done
+				case 'item-done': 
+					{
+						const id = parseInt(e.target.attributes[1].value);
+						const item = model.getItem(id);
+						item.done = e.target.checked ? true : false;
+					}
+					break;
 			}
 		});
 	}

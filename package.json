@@ -4,8 +4,8 @@
   "description": "JavaScript project based on The Odin Project [curriculum](https://www.theodinproject.com/courses/javascript/lessons/todo-list?ref=lnav). Topics emphasized: - Factory functions - Modules - SOLID principles - localStorage - npm - webpack",
   "private": true,
   "scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "webpack"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
   "devDependencies": {
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "date-fns": "^2.9.0"
   }
 }

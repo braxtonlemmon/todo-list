@@ -5,17 +5,22 @@ import { renderList } from './renderList';
 const renderProjects = (() => {
 	const main = document.querySelector('.main');
 	const column = document.createElement('div');
+	const projects = model.projects;
 
 	const render = () => {
-		if (main.childElementCount < 2) {
-			console.log('hey');
-			_makeColumn();
-			_seedColumn();
-			const initial = column.firstElementChild;
-			initial.classList.add('column-btn-selected');
-		} else {
-			_seedColumn();
-		}
+		if (main.childElementCount < 2) _makeColumn();
+		if (projects.length === 0) return;
+		_seedColumn();
+		const initial = column.firstElementChild;
+		initial.classList.add('column-btn-selected');
+		renderList.render(initial.dataset.id);
+	}
+
+	const renderNew = () => {
+		_seedColumn();
+		const newProject = column.lastElementChild;
+		newProject.classList.add('column-btn-selected');
+		renderList.render(newProject.dataset.id);
 	}
 
 	const updateProjectBtn = (id, title) => {
@@ -40,6 +45,15 @@ const renderProjects = (() => {
 		const column = document.querySelector('.projects-column');
 		column.removeChild(project);
 	}
+
+	const resetId = (position) => {
+		const column = document.querySelector('.projects-column');
+		if (position === 'first') {
+			if (column.childElementCount > 0) return parseInt(column.firstElementChild.dataset.id);
+		} else if (position === 'last') {
+			return parseInt(column.lastElementChild.dataset.id);
+		}
+	}
 	// PRIVATE
 
 	const _makeColumn = () => {
@@ -48,8 +62,14 @@ const renderProjects = (() => {
 	}
 
 	const _seedColumn = () => {
-		const projects = model.projects;
-		_makeProjectBtn(projects[projects.length - 1]);
+		_clearColumn();
+		projects.forEach(project => _makeProjectBtn(project));
+	}
+
+	const _clearColumn = () => {
+		while (column.childElementCount > 0) {
+			column.removeChild(column.lastElementChild);
+		}
 	}
 
 	const _makeProjectBtn = (project) => {
@@ -57,7 +77,6 @@ const renderProjects = (() => {
 		button.textContent = project.title;
 		button.classList.add('column-btn');
 		button.dataset.id = project.id;
-		// button.addEventListener('click', toggleProjects);
 		column.appendChild(button);
 	}
 
@@ -65,7 +84,9 @@ const renderProjects = (() => {
 					render, 
 					toggleProjects, 
 					updateProjectBtn,
-					destroyProject
+					destroyProject,
+					resetId,
+					renderNew,
 				};
 })();
 

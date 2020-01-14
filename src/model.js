@@ -13,8 +13,8 @@ const model = (() => {
 	};
 
 	// Factory function for new list item
-	const Item = (title, description, dueDate, priority, projectId, id) => {
-		return { title, description, dueDate, priority, projectId, id };
+	const Item = (title, description, dueDate, priority, projectId, id, done) => {
+		return { title, description, dueDate, priority, projectId, id, done };
 	};
 
 	// Form validations
@@ -69,7 +69,7 @@ const model = (() => {
 
 	const createItem = (projectId) => {
 		const data = _getItemFormData();
-		const item = Item(data.title, data.description, data.dueDate, data.priority, projectId, itemId++);
+		const item = Item(data.title, data.description, data.dueDate, data.priority, projectId, itemId++, false);
 		items.push(item);
 	}
 
@@ -100,6 +100,7 @@ const model = (() => {
 	const updateItem = (id) => {
 		const item = getItem(id);
 		const data = _getItemFormData();
+		console.log(data);
 		item.title = data.title;
 		item.description = data.description;
 		item.data = data.dueDate;

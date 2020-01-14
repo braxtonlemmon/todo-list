@@ -1,5 +1,5 @@
-import { sampleData } from './sampleData';
 import { model } from './model';
+import { format } from 'date-fns';
 
 const renderList = (() => {
 	const main = document.querySelector('.main');
@@ -9,6 +9,7 @@ const renderList = (() => {
 	const render = (id) => {
 		clearList();
 		_addButton();
+		_addLabels();
 		_makeList();
 		_seedList(id);
 	};
@@ -33,6 +34,24 @@ const renderList = (() => {
 		listBox.appendChild(buttons);
 	}
 
+	const _addLabels = () => {
+		const row = document.createElement('div');
+		row.classList.add('list-row');
+		row.classList.add('title-row');
+		const done = document.createElement('span');
+		done.textContent = 'Done?';
+		const title = document.createElement('span');
+		title.textContent = 'Title';
+		const date = document.createElement('span');
+		date.textContent = 'Due date';
+		row.appendChild(done);
+		row.appendChild(title);
+		row.appendChild(date);
+
+		listBox.appendChild(row);
+
+	}
+
 	const _makeList = () => {
 		list.classList.add('list');
 		listBox.classList.add('list-box');
@@ -41,10 +60,8 @@ const renderList = (() => {
 	};
 
 	const _seedList = (id) => {
-		// const items = sampleData.items[id];
 		const items = model.getItems(id);
 		items.forEach(item => _addItem(item));
-		
 	};
 
 
@@ -52,18 +69,23 @@ const renderList = (() => {
 		const row = document.createElement('li');
 		row.classList.add('list-row');
 		row.dataset.itemId = item.id;
+		if (item.priority) row.classList.add('row-priority');
+
 		const box = document.createElement('input');
 		box.classList.add('item-done');
 		box.dataset.itemBox = item.id;
 		box.type = 'checkbox';
+		box.checked = item.done;
 		const title = document.createElement('span');
 		title.classList.add('item-title');
 		title.dataset.itemTitle = item.id;
 		title.textContent = item.title;
+
 		const date = document.createElement('span');
 		date.classList.add('item-date');
 		date.dataset.itemDate = item.id;
-		date.textContent = item.dueDate;
+		let newDate = item.dueDate.split('-'); 
+		date.textContent = format(new Date(newDate[0], newDate[2], newDate[1]), "LLL d, yy");
 
 		const edit = document.createElement('div');
 		const remove = document.createElement('div');
@@ -94,6 +116,8 @@ const renderList = (() => {
 		title.textContent = data.title;
 		const date = document.querySelector(`[data-item-date="${id}"]`);
 		date.textContent = data.dueDate;
+		data.priority ? item.classList.add('row-priority') : item.classList.remove('row-priority');
+
 	}
 
 	const destroyItem = (id) => {
